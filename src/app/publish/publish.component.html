@@ -1,0 +1,16 @@
+<div class="publish-container">
+  <div class="publish-container-wrapper">
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <label>
+        Title:
+        <input type="text" [formControl]="name">
+      </label>
+      <label>
+        Description:
+        <textarea type="text" [formControl]="description"></textarea>
+      </label>
+      <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+    </form>
+
+  </div>
+</div>

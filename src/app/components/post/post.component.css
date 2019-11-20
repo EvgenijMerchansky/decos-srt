@@ -1,0 +1,24 @@
+.post-container-wrapper {
+    width: 600px;
+    padding: 20px;
+    margin: 10px auto;
+}
+
+.post-container-back-link {
+  transition: all .5s;
+  color: red;
+}
+
+.post-container-back-link:hover {
+  color: darkred;
+}
+
+.post-container-next-link {
+  transition: all .5s;
+  color: red;
+}
+
+.post-container-next-link:hover {
+  transition: all .5s;
+  color: red;
+}

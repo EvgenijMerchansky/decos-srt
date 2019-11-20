@@ -1,0 +1,22 @@
+<div class="post-container">
+  <div class="post-container-wrapper" *ngIf="postsService.post !== undefined; else loading;">
+    <a mat-tab-link routerLink="/posts" class="post-container-back-link" routerLinkActive="active">&#9664; posts</a>
+    <hr/>
+    <h5>{{postsService.post.title}}</h5>
+    <p>{{postsService.post.body}}</p>
+    <hr/>
+    <p>Author:
+      <a mat-tab-link [routerLink]="['users', postsService.user.id]" class="post-container-next-link" routerLinkActive="active">
+        {{postsService.user.username}}
+      </a>
+    </p>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="posts-container-content">
+    <p class="posts-container-content-loading">
+      loading...
+    </p>
+  </div>
+</ng-template>

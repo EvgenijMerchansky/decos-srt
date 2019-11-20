@@ -1,0 +1,15 @@
+.header-container {
+    background-color: red;
+    padding: 10px 20px;
+    font-size: 14px;
+    margin: 0;
+}
+
+.header-container-title {
+    margin: 0;
+}
+
+.header-container-title-link {
+    text-decoration: none;
+    color: #fff;
+}

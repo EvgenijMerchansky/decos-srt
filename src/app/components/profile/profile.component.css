@@ -1,0 +1,14 @@
+.user-container-wrapper {
+  width: 600px;
+  padding: 20px;
+  margin: 10px auto;
+}
+
+.user-container-back-link {
+  transition: all .5s;
+  color: red;
+}
+
+.user-container-back-link:hover {
+  color: darkred;
+}

@@ -1,0 +1,22 @@
+<div class="user-container">
+  <div class="user-container-wrapper" *ngIf="postsService.user !== undefined; else loading;">
+    <a mat-tab-link [routerLink]="['/posts', postsService.post.id]" class="user-container-back-link" routerLinkActive="active">&#9664; {{postsService.post.title}}</a>
+    <hr/>
+    <h3>{{postsService.user.name}} aka "{{postsService.user.username}}"</h3>
+    <ul>
+      <li>{{postsService.user.address.city}}, {{postsService.user.address.street}}, {{postsService.user.address.zipcode}}</li>
+      <li>{{postsService.user.website}}</li>
+      <li>{{postsService.user.phone}}</li>
+    </ul>
+    <p>Company: <b>{{postsService.user.company.name}}</b></p>
+    <hr/>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="posts-container-content">
+    <p class="posts-container-content-loading">
+      loading...
+    </p>
+  </div>
+</ng-template>
