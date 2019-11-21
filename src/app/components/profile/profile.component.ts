@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ServicePosts} from '../../services/app.service.posts';
 import {ActivatedRoute} from '@angular/router';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-profile',
@@ -9,13 +10,13 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-  private loading = true;
-
   constructor(
     private postsService: ServicePosts,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
     const userId: number = +this.route.snapshot.paramMap.get('userId');
     const postId: number = +this.route.snapshot.paramMap.get('id');
 
@@ -26,14 +27,14 @@ export class ProfileComponent implements OnInit {
   public getUser(userId: number): void {
     this.postsService
       .GetUserAsync(userId).subscribe(() => {
-        this.loading = false;
+        this.spinner.hide();
       });
   }
 
   public getPost(postId: number): void {
     this.postsService
       .GetPostAsync(postId).subscribe(() => {
-        this.loading = false;
+        this.spinner.hide();
       });
   }
 }

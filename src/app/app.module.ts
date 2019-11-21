@@ -12,6 +12,7 @@ import { ServicePosts } from './services/app.service.posts';
 import { PostComponent } from './components/post/post.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 const appRoutes: Routes = [
   {
@@ -55,6 +56,7 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgxSpinnerModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true }

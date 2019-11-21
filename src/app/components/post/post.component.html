@@ -1,8 +1,14 @@
 <div class="post-container">
-  <div class="post-container-wrapper" *ngIf="postsService.post !== undefined; else loading;">
-    <a mat-tab-link routerLink="/posts" class="post-container-back-link" routerLinkActive="active">&#9664; posts</a>
+  <div class="post-container-wrapper" *ngIf="postsService.post !== undefined;">
+    <a mat-tab-link routerLink="/posts" class="post-container-back-link" routerLinkActive="active">&#9664; <b>posts</b></a>
     <hr/>
     <h5>{{postsService.post.title}}</h5>
+    <p>{{postsService.post.body}}</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus illum soluta voluptatibus? Aperiam debitis doloribus inventore necessitatibus nostrum? Aliquam eos eveniet expedita facilis fugiat itaque placeat quam quia ut veritatis.</p>
+    <p>{{postsService.post.body}}</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus illum soluta voluptatibus? Aperiam debitis doloribus inventore necessitatibus nostrum? Aliquam eos eveniet expedita facilis fugiat itaque placeat quam quia ut veritatis.</p>
+    <p>{{postsService.post.body}}</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus illum soluta voluptatibus? Aperiam debitis doloribus inventore necessitatibus nostrum? Aliquam eos eveniet expedita facilis fugiat itaque placeat quam quia ut veritatis.</p>
     <p>{{postsService.post.body}}</p>
     <hr/>
     <p>Author:
@@ -11,12 +17,12 @@
       </a>
     </p>
   </div>
+  <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+  >
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>
 </div>
-
-<ng-template #loading>
-  <div class="posts-container-content">
-    <p class="posts-container-content-loading">
-      loading...
-    </p>
-  </div>
-</ng-template>

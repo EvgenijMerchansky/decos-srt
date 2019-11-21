@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicePosts } from 'src/app/services/app.service.posts';
 import { ActivatedRoute } from '@angular/router';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-post',
@@ -12,9 +13,12 @@ export class PostComponent implements OnInit {
 
   constructor(
     private postsService: ServicePosts,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService) { }
 
-  async ngOnInit() {
+  ngOnInit() {
+    this.spinner.show();
+
     const postId: number = +this.route.snapshot.paramMap.get('id');
 
     this.getPost(postId);
@@ -32,7 +36,7 @@ export class PostComponent implements OnInit {
     this.postsService
       .GetUserAsync(userId)
       .subscribe(() => {
-        this.loading = false;
+        this.spinner.hide();
       });
   }
 }

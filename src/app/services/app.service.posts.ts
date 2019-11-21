@@ -48,7 +48,7 @@ export class ServicePosts {
 
     public GetPostsAsync(): Observable<IPost[]> {
         return this.http
-            .get<IPost[]>(`${this.apiBase}/posts`)
+            .get<IPost[]>(`${this.apiBase}/posts?_limit=15`)
             .pipe(tap(data => this.posts = data));
     }
 

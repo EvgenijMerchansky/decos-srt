@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicePosts } from '../services/app.service.posts';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-posts',
@@ -8,17 +9,18 @@ import { ServicePosts } from '../services/app.service.posts';
 })
 export class PostsComponent implements OnInit {
 
-  private loading: boolean = true;
-
-  constructor(private postsService: ServicePosts) { }
+  constructor(
+    private postsService: ServicePosts,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.getPosts();
   }
 
   public getPosts(): void {
     this.postsService.GetPostsAsync().subscribe(() => {
-      this.loading = false;
+      this.spinner.hide();
     });
   }
 }

@@ -1,17 +1,17 @@
-<div class="posts-container" *ngIf="postsService.posts.length; else loading">
-    <div class="posts-container-content" *ngFor="let post of postsService.posts; let i = index">
-        <h4>{{i + 1}}. {{post.title}}</h4>
-        <hr/>
-        <p>{{post.body}}</p>
-        <hr/>
-        <a mat-tab-link [routerLink]="[post.id]" routerLinkActive="active" class="posts-more-button">more &#9658;</a>
-    </div>
+<div class="posts-container" *ngIf="postsService.posts.length;">
+  <div class="posts-container-content" *ngFor="let post of postsService.posts;">
+    <h4>{{post.title}}</h4>
+    <hr/>
+    <p>{{post.body}}</p>
+    <hr/>
+    <a mat-tab-link [routerLink]="[post.id]" routerLinkActive="active" class="posts-more-button"><b>more</b> &#9658;</a>
+  </div>
+  <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+  >
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>
 </div>
-
-<ng-template #loading>
-    <div class="posts-container-content">
-        <p class="posts-container-content-loading">
-            loading...
-        </p>
-    </div>
-</ng-template>

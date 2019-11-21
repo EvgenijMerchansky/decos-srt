@@ -1,22 +1,29 @@
 <div class="user-container">
-  <div class="user-container-wrapper" *ngIf="postsService.user !== undefined; else loading;">
-    <a mat-tab-link [routerLink]="['/posts', postsService.post.id]" class="user-container-back-link" routerLinkActive="active">&#9664; {{postsService.post.title}}</a>
+  <div class="user-container-wrapper" *ngIf="postsService.user !== undefined;">
+    <a mat-tab-link [routerLink]="['/posts', postsService.post.id]" class="user-container-back-link" routerLinkActive="active">&#9664; <b>back to:</b> {{postsService.post.title}}</a>
     <hr/>
-    <h3>{{postsService.user.name}} aka "{{postsService.user.username}}"</h3>
-    <ul>
-      <li>{{postsService.user.address.city}}, {{postsService.user.address.street}}, {{postsService.user.address.zipcode}}</li>
-      <li>{{postsService.user.website}}</li>
-      <li>{{postsService.user.phone}}</li>
-    </ul>
-    <p>Company: <b>{{postsService.user.company.name}}</b></p>
+    <div class="user-container-info">
+      <p>Profile: <b>{{postsService.user.name}} aka "{{postsService.user.username}}"</b></p>
+      <h5>Info:</h5>
+      <ul>
+        <li>{{postsService.user.address.city}}, {{postsService.user.address.street}}, {{postsService.user.address.zipcode}}</li><br/>
+        <li>{{postsService.user.website}}</li><br/>
+        <li>{{postsService.user.phone}}</li><br/>
+      </ul>
+      <h5>Company: </h5>
+      <ul>
+        <li><b>{{postsService.user.company.name}}</b></li><br/>
+        <li>"{{postsService.user.company.catchPhrase}}"</li>
+      </ul>
+    </div>
     <hr/>
-  </div>
+    </div>
+  <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+  >
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>
 </div>
-
-<ng-template #loading>
-  <div class="posts-container-content">
-    <p class="posts-container-content-loading">
-      loading...
-    </p>
-  </div>
-</ng-template>

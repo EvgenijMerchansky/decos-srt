@@ -12,3 +12,7 @@
 .user-container-back-link:hover {
   color: darkred;
 }
+
+.user-container-info {
+  width: 350px;
+}
