@@ -11,8 +11,9 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { ServicePosts } from './services/app.service.posts';
 import { PostComponent } from './components/post/post.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import { BestComponent } from './best/best.component';
 
 const appRoutes: Routes = [
   {
@@ -29,6 +30,11 @@ const appRoutes: Routes = [
     path: 'publish',
     component: PublishComponent,
     data: { title: 'Publish' }
+  },
+  {
+    path: 'best',
+    component: BestComponent,
+    data: { title: 'Best' }
   },
   {
     path: 'posts/:id',
@@ -51,6 +57,7 @@ const appRoutes: Routes = [
     NavigationComponent,
     PostComponent,
     ProfileComponent,
+    BestComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,8 +66,9 @@ const appRoutes: Routes = [
     NgxSpinnerModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true }
-    )
+      {enableTracing: true}
+    ),
+    FormsModule
   ],
   providers: [ServicePosts],
   bootstrap: [AppComponent]

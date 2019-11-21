@@ -1,16 +1,24 @@
 <div class="publish-container">
   <div class="publish-container-wrapper">
-    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="form-wrapper">
+      <h3 class="publish-container-title">New post:</h3>
       <label>
         Title:
-        <input type="text" [formControl]="name">
+        <input [(ngModel)]="title" minlength="10" maxlength="50" (ngModelChange)="validate($event)" type="text">
       </label>
       <label>
-        Description:
-        <textarea type="text" [formControl]="description"></textarea>
+        Text:
+        <textarea [(ngModel)]="description" minlength="50" maxlength="500" (ngModelChange)="validate($event)" type="text"></textarea>
       </label>
-      <button type="submit" [disabled]="!profileForm.valid">Submit</button>
-    </form>
-
+      <button (click)="onSubmit()" [className]="formIsValid ? 'form-wrapper-enable' : 'form-wrapper-disable'" [disabled]="!formIsValid">Publish</button>
+    </div>
   </div>
+  <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+  >
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>
 </div>

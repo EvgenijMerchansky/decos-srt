@@ -20,7 +20,7 @@
 
 .post-container-next-link:hover {
   transition: all .5s;
-  color: red;
+  color: darkred;
 }
 
 .spinner {
