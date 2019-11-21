@@ -11,9 +11,9 @@ import {NgxSpinnerService} from 'ngx-spinner';
 export class ProfileComponent implements OnInit {
 
   constructor(
-    private postsService: ServicePosts,
-    private route: ActivatedRoute,
-    private spinner: NgxSpinnerService) { }
+    public postsService: ServicePosts,
+    public route: ActivatedRoute,
+    public spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.spinner.show();

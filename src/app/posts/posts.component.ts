@@ -10,8 +10,8 @@ import {NgxSpinnerService} from 'ngx-spinner';
 export class PostsComponent implements OnInit {
 
   constructor(
-    private postsService: ServicePosts,
-    private spinner: NgxSpinnerService) { }
+    public postsService: ServicePosts,
+    public spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.spinner.show();

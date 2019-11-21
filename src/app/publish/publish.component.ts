@@ -10,14 +10,14 @@ import {Router} from '@angular/router';
 })
 export class PublishComponent implements OnInit {
 
-  private title = '';
-  private description = '';
-  private formIsValid = false;
+  public title = '';
+  public description = '';
+  public formIsValid = false;
 
   constructor(
-    private postService: ServicePosts,
-    private router: Router,
-    private spinner: NgxSpinnerService) { }
+    public postService: ServicePosts,
+    public router: Router,
+    public spinner: NgxSpinnerService) { }
 
   ngOnInit() {
   }
@@ -51,12 +51,12 @@ export class PublishComponent implements OnInit {
     });
   }
 
-  private cleanFields = (): void => {
+  public cleanFields = (): void => {
     this.title = '';
     this.description = '';
   }
 
-  private generateNewPost = (): INewPost => {
+  public generateNewPost = (): INewPost => {
     return {
       title: this.title,
       body: this.description,
@@ -64,7 +64,7 @@ export class PublishComponent implements OnInit {
     };
   }
 
-  private generateRandomUserId = (): number => {
+  public generateRandomUserId = (): number => {
     return Math.round(Math.random() * 10);
   }
 }

@@ -9,12 +9,11 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
-  private loading = true;
 
   constructor(
-    private postsService: ServicePosts,
-    private route: ActivatedRoute,
-    private spinner: NgxSpinnerService) { }
+    public postsService: ServicePosts,
+    public route: ActivatedRoute,
+    public spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.spinner.show();

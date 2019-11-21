@@ -44,13 +44,13 @@ export interface INewPost {
     providedIn: 'root'
 })
 export class ServicePosts {
-    private readonly apiBase: string = 'https://jsonplaceholder.typicode.com';
+    public readonly apiBase: string = 'https://jsonplaceholder.typicode.com';
 
     public posts: IPost[] = [];
     public post: IPost = undefined;
     public user: IUser = undefined;
 
-    constructor(private http: HttpClient) { }
+    constructor(public http: HttpClient) { }
 
     public GetPostsAsync(): Observable<IPost[]> {
         return this.http
