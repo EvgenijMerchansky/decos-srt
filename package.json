@@ -5,8 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "postinstall": "ng build --prod",
-    "heroku-postbuild": "ng build --prod",
     "build": "ng build",
+    "heroku-postbuild": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
