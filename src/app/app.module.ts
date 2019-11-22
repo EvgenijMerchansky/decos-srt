@@ -22,11 +22,6 @@ const appRoutes: Routes = [
     data: { title: 'Home' }
   },
   {
-    path: 'posts',
-    component: PostsComponent,
-    data: { title: 'Posts' }
-  },
-  {
     path: 'publish',
     component: PublishComponent,
     data: { title: 'Publish' }
