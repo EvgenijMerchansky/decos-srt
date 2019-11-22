@@ -17,7 +17,7 @@ import { BestComponent } from './best/best.component';
 
 const appRoutes: Routes = [
   {
-    path: '',
+    path: 'posts',
     component: PostsComponent,
     data: { title: 'Home' }
   },
