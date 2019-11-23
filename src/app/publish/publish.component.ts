@@ -36,19 +36,11 @@ export class PublishComponent implements OnInit {
   public onSubmit = (): void => {
     this.spinner.show();
     const newPost = this.generateNewPost();
-
-    this.postService.CreatePostAsync(newPost).subscribe(data => {
-      if (data.id !== undefined) {
-        this.cleanFields();
-        this.spinner.hide();
-
-        window.alert('✓ new post successfully published!');
-        this.router.navigate(['posts']);
-
-        return;
-      }
-      window.alert('✕ Something went wrong! Please try again.');
-    });
+    this.postService.CreatePostAsync(newPost);
+    this.cleanFields();
+    this.spinner.hide();
+    window.alert('✓ new post successfully published!');
+    this.router.navigate(['posts']);
   }
 
   public cleanFields = (): void => {

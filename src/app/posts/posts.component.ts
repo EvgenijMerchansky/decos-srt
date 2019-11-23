@@ -13,14 +13,14 @@ export class PostsComponent implements OnInit {
     public postsService: ServicePosts,
     public spinner: NgxSpinnerService) { }
 
-  ngOnInit() {
-    this.spinner.show();
+  async ngOnInit() {
+    await this.spinner.show();
     this.getPosts();
   }
 
-  public getPosts(): void {
-    this.postsService.GetPostsAsync().subscribe(() => {
-      this.spinner.hide();
-    });
+  public async getPosts(): Promise<void> {
+    await this.postsService.GetPostsAsync();
+
+    await this.spinner.hide();
   }
 }

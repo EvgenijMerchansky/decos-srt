@@ -15,24 +15,23 @@ export class PostComponent implements OnInit {
     public route: ActivatedRoute,
     public spinner: NgxSpinnerService) { }
 
-  ngOnInit() {
-    this.spinner.show();
+  async ngOnInit() {
+    await this.spinner.show();
+    const postId: string = this.route.snapshot.paramMap.get('id');
 
-    const postId: number = +this.route.snapshot.paramMap.get('id');
-
-    this.getPost(postId);
+    await this.getPost(postId);
   }
 
-  public getPost(postId: number) {
-    this.postsService
-      .GetPostAsync(postId)
-      .subscribe(() => {
-        this.getUser(this.postsService.post.userId);
-      });
+  public async getPost(postId: string): Promise<any> {
+    await this.postsService.GetPostAsync(postId);
+
+    await this.getUser(this.postsService.post.userId);
+
+    await this.spinner.hide();
   }
 
-  public getUser(userId: number): void {
-    this.postsService
+  public async getUser(userId: number): Promise<any> {
+    await this.postsService
       .GetUserAsync(userId)
       .subscribe(() => {
         this.spinner.hide();

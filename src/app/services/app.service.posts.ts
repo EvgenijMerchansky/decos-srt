@@ -1,37 +1,38 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 import {tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
 export interface IPost {
-    userId: number;
-    id: number;
-    title: string;
-    body: string;
+  body: string;
+  id: string;
+  title: string;
+  userId: number;
 }
 
 export interface IUser {
-    id: number;
-    name: string;
-    username: string;
-    email: string;
-    address: {
-        street: string,
-        suite: string,
-        city: string,
-        zipcode: string,
-        geo: {
-            lat: string,
-            lng: string
-        }
-    };
-    phone: string;
-    website: string;
-    company: {
-        name: string,
-        catchPhrase: string,
-        bs: string
-    };
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  address: {
+    street: string,
+    suite: string,
+    city: string,
+    zipcode: string,
+    geo: {
+      lat: string,
+      lng: string
+    }
+  };
+  phone: string;
+  website: string;
+  company: {
+    name: string,
+    catchPhrase: string,
+    bs: string
+  };
 }
 
 export interface INewPost {
@@ -41,45 +42,56 @@ export interface INewPost {
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ServicePosts {
     public readonly apiBase: string = 'https://jsonplaceholder.typicode.com';
 
+    public postsRef: AngularFireList<IPost[]>;
     public posts: IPost[] = [];
     public post: IPost = undefined;
     public user: IUser = undefined;
 
-    constructor(public http: HttpClient) { }
-
-    public GetPostsAsync(): Observable<IPost[]> {
-        return this.http
-            .get<IPost[]>(`${this.apiBase}/posts?_limit=15`)
-            .pipe(tap(data => {
-              this.posts = data.map(it => {
-                const tempFirst = it.title.slice(0, 1).toLocaleUpperCase();
-                const tempLast = it.title.slice(1, it.title.length);
-                it.title = tempFirst + tempLast;
-                return it;
-              });
-
-              return data;
-            }));
+    constructor(
+      public http: HttpClient,
+      public db: AngularFireDatabase) {
+      this.postsRef = db.list('posts');
     }
 
-    public GetPostAsync(postId: number): Observable<IPost> {
-        return this.http
-            .get<IPost>(`${this.apiBase}/posts/${postId}`)
-            .pipe(tap(data => this.post = data));
+    public async GetPostsAsync(): Promise<void> {
+      await this.db
+        .list<IPost>('posts')
+        .valueChanges()
+        .subscribe((data) => {
+          this.posts = data;
+        });
+    }
+
+    public async GetPostAsync(postId: string): Promise<void> {
+      return this.db.database
+        .ref('posts')
+        .once('value')
+        .then(data => {
+          const item = data.val()[`${postId}`];
+          if (item !== undefined) {
+            this.post = item;
+          }
+        });
     }
 
     public GetUserAsync(userId: number): Observable<IUser> {
-        return this.http
-            .get<IUser>(`${this.apiBase}/users/${userId}`)
-            .pipe(tap(data => this.user = data));
+      return this.http
+        .get<IUser>(`${this.apiBase}/users/${userId}`)
+        .pipe(tap(data => this.user = data));
     }
 
-    public CreatePostAsync(newPost: INewPost): Observable<any> {
-        return this.http.post(`${this.apiBase}/posts`, newPost);
+    public async CreatePostAsync(newPost: INewPost): Promise<void> {
+      const postKey = this.db.list('posts')
+        .push(newPost).key;
+
+      const updates = {};
+      updates['posts/' + postKey] = {...newPost, id: postKey};
+
+      await this.db.database.ref().update(updates);
     }
 }

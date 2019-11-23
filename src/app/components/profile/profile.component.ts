@@ -15,26 +15,23 @@ export class ProfileComponent implements OnInit {
     public route: ActivatedRoute,
     public spinner: NgxSpinnerService) { }
 
-  ngOnInit() {
-    this.spinner.show();
+  async ngOnInit() {
+    await this.spinner.show();
     const userId: number = +this.route.snapshot.paramMap.get('userId');
-    const postId: number = +this.route.snapshot.paramMap.get('id');
+    const postId: string = this.route.snapshot.paramMap.get('id');
 
     this.getUser(userId);
     this.getPost(postId);
   }
 
-  public getUser(userId: number): void {
+  public async getUser(userId: number): Promise<void> {
     this.postsService
       .GetUserAsync(userId).subscribe(() => {
         this.spinner.hide();
       });
   }
 
-  public getPost(postId: number): void {
-    this.postsService
-      .GetPostAsync(postId).subscribe(() => {
-        this.spinner.hide();
-      });
+  public async getPost(postId: string): Promise<void> {
+    await this.postsService.GetPostAsync(postId);
   }
 }

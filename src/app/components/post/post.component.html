@@ -1,14 +1,8 @@
 <div class="post-container">
-  <div class="post-container-wrapper" *ngIf="postsService.post !== undefined;">
+  <div class="post-container-wrapper" *ngIf="postsService.post !== undefined && postsService.user !== undefined;">
     <a mat-tab-link routerLink="/posts" class="post-container-back-link" routerLinkActive="active">&#9664; <b>posts</b></a>
     <hr/>
     <h5>{{postsService.post.title}}</h5>
-    <p>{{postsService.post.body}}</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus illum soluta voluptatibus? Aperiam debitis doloribus inventore necessitatibus nostrum? Aliquam eos eveniet expedita facilis fugiat itaque placeat quam quia ut veritatis.</p>
-    <p>{{postsService.post.body}}</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus illum soluta voluptatibus? Aperiam debitis doloribus inventore necessitatibus nostrum? Aliquam eos eveniet expedita facilis fugiat itaque placeat quam quia ut veritatis.</p>
-    <p>{{postsService.post.body}}</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus illum soluta voluptatibus? Aperiam debitis doloribus inventore necessitatibus nostrum? Aliquam eos eveniet expedita facilis fugiat itaque placeat quam quia ut veritatis.</p>
     <p>{{postsService.post.body}}</p>
     <hr/>
     <p>Author:

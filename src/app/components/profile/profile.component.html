@@ -1,5 +1,5 @@
 <div class="user-container">
-  <div class="user-container-wrapper" *ngIf="postsService.user !== undefined;">
+  <div class="user-container-wrapper" *ngIf="postsService.user !== undefined && postsService.post !== undefined;">
     <a mat-tab-link [routerLink]="['/posts', postsService.post.id]" class="user-container-back-link" routerLinkActive="active">&#9664; <b>back to:</b> {{postsService.post.title}}</a>
     <hr/>
     <div class="user-container-info">
