@@ -25,7 +25,11 @@ export class PostComponent implements OnInit {
   public async getPost(postId: string): Promise<any> {
     await this.postsService.GetPostAsync(postId);
 
+    console.log(this.postsService.post, 'this.postsService.post');
+
     await this.getUser(this.postsService.post.userId);
+
+    console.log(this.postsService.post.userId, 'this.postsService.post.userId')
 
     await this.spinner.hide();
   }
