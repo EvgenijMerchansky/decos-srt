@@ -16,6 +16,11 @@ import { ProfileComponent } from './components/profile/profile.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import { BestComponent } from './best/best.component';
+import { SplashComponent } from './splash/splash.component';
+import {ServiceAuth} from './services/app.service.auth';
+import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireAuthGuardModule} from '@angular/fire/auth-guard';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 const appRoutes: Routes = [
   {
@@ -55,21 +60,24 @@ const appRoutes: Routes = [
     PostComponent,
     ProfileComponent,
     BestComponent,
+    SplashComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
+    AngularFirestoreModule,
     NgxSpinnerModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}
     ),
-    FormsModule
+    FormsModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
-  providers: [ServicePosts],
+  providers: [ServicePosts, ServiceAuth, AngularFirestore, AngularFireAuthGuardModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

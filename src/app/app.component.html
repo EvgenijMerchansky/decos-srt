@@ -1,5 +1,10 @@
 <div class="app-container">
-  <app-header></app-header>
-  <app-navigation></app-navigation>
-  <router-outlet></router-outlet>
+  <div class="app-routing-splash" *ngIf="!authorized">
+    <app-splash (onSignInClick)="onClick()"></app-splash>
+  </div>
+  <div class="app-routing-wrapper" *ngIf="authorized">
+    <app-header></app-header>
+    <app-navigation></app-navigation>
+    <router-outlet></router-outlet>
+  </div>
 </div>
