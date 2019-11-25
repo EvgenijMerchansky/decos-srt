@@ -2,10 +2,6 @@ import { Injectable } from '@angular/core';
 import {auth} from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-interface IUser {
-  uid: string;
-}
-
 @Injectable({
   providedIn: 'root'
 })
