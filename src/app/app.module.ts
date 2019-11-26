@@ -15,12 +15,13 @@ import { PostComponent } from './components/post/post.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxSpinnerModule} from 'ngx-spinner';
-import { BestComponent } from './best/best.component';
+import { MetricsComponent } from './metrics/metrics.component';
 import { SplashComponent } from './splash/splash.component';
 import {ServiceAuth} from './services/app.service.auth';
 import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthGuardModule} from '@angular/fire/auth-guard';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import { ChartsModule } from 'ng2-charts';
 
 const appRoutes: Routes = [
   {
@@ -34,8 +35,8 @@ const appRoutes: Routes = [
     data: { title: 'Publish' }
   },
   {
-    path: 'best',
-    component: BestComponent,
+    path: 'metrics',
+    component: MetricsComponent,
     data: { title: 'Best' }
   },
   {
@@ -59,7 +60,7 @@ const appRoutes: Routes = [
     NavigationComponent,
     PostComponent,
     ProfileComponent,
-    BestComponent,
+    MetricsComponent,
     SplashComponent,
   ],
   imports: [
@@ -75,7 +76,8 @@ const appRoutes: Routes = [
     ),
     FormsModule,
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    ChartsModule
   ],
   providers: [ServicePosts, ServiceAuth, AngularFirestore, AngularFireAuthGuardModule],
   bootstrap: [AppComponent]
