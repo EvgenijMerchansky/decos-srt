@@ -76,6 +76,7 @@
 .socket-example-wrapper input {
   width: 100%;
   margin: 15px 0;
+  padding: 5px;
 }
 
 .socket-example-wrapper label {
