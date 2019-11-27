@@ -94,4 +94,8 @@ export class ServicePosts {
 
       await this.db.database.ref().update(updates);
     }
+
+    public async ChangeSocketValue(value: any): Promise<void> {
+      await this.db.database.ref('example').update({data: value});
+    }
 }

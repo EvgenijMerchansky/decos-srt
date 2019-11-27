@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {INewPost, ServicePosts} from '../services/app.service.posts';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {Router} from '@angular/router';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-publish',
@@ -13,6 +14,10 @@ export class PublishComponent implements OnInit {
   public title = '';
   public description = '';
   public formIsValid = false;
+  public dbRef = null;
+
+  public socketInputValue = '';
+  public socketDynamicValue = '';
 
   constructor(
     public postService: ServicePosts,
@@ -20,6 +25,15 @@ export class PublishComponent implements OnInit {
     public spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.dbRef = firebase.database().ref('example');
+
+    this.dbRef.on('value', snapshot => {
+      this.socketDynamicValue = snapshot.val().data;
+    });
+  }
+
+  public async changeSocketValue(): Promise<void> {
+    await this.postService.ChangeSocketValue(this.socketInputValue);
   }
 
   public validate = ($event: any): void => {

@@ -1,5 +1,20 @@
 <div class="publish-container">
   <div class="publish-container-wrapper">
+    <div class="socket-example-wrapper">
+      <label>
+        Socket input:
+        <input
+          [(ngModel)]="socketInputValue"
+          (ngModelChange)="changeSocketValue()"
+          [value]="socketDynamicValue"
+          maxlength="15"
+          type="text"
+          class="socket-example-wrapper-input"
+        />
+      </label>
+      <p>Result from db: <b>{{this.socketInputValue}}</b></p>
+    </div>
+    <hr/>
     <div class="form-wrapper">
       <h3 class="publish-container-title">New post:</h3>
       <label>
