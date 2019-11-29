@@ -49,6 +49,7 @@ export class ServicePosts {
 
     public postsRef: AngularFireList<IPost[]>;
     public posts: IPost[] = [];
+    public users: IUser[] = [];
     public post: IPost = undefined;
     public user: IUser = undefined;
 
@@ -84,6 +85,12 @@ export class ServicePosts {
         .get<IUser>(`${this.apiBase}/users/${userId}`)
         .pipe(tap(data => this.user = data));
     }
+
+  public GetUsersAsync(): Observable<IUser[]> {
+    return this.http
+      .get<IUser[]>(`${this.apiBase}/users`)
+      .pipe(tap(data => this.users = data));
+  }
 
     public async CreatePostAsync(newPost: INewPost): Promise<void> {
       const postKey = this.db.list('posts')

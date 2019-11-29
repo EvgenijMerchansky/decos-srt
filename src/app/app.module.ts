@@ -21,7 +21,10 @@ import {ServiceAuth} from './services/app.service.auth';
 import {AngularFirestore, AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthGuardModule} from '@angular/fire/auth-guard';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { ChartsModule } from 'ng2-charts';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { TableComponent } from './table/table.component';
 
 const appRoutes: Routes = [
   {
@@ -48,6 +51,11 @@ const appRoutes: Routes = [
     path: 'posts/:id/users/:userId',
     component: ProfileComponent,
     data: { title: 'Profile' }
+  },
+  {
+    path: 'table',
+    component: TableComponent,
+    data: { title: 'Table' }
   }
 ];
 
@@ -62,6 +70,7 @@ const appRoutes: Routes = [
     ProfileComponent,
     MetricsComponent,
     SplashComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,9 +86,11 @@ const appRoutes: Routes = [
     FormsModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    ChartsModule
+    ChartsModule,
+    NgZorroAntdModule,
+    NzTableModule
   ],
-  providers: [ServicePosts, ServiceAuth, AngularFirestore, AngularFireAuthGuardModule],
+  providers: [ServicePosts, ServiceAuth, AngularFirestore, AngularFireAuthGuardModule, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

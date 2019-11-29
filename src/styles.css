@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~ng-zorro-antd/style/index.min.css";
+@import "~ng-zorro-antd/button/style/index.min.css";
+@import "~ng-zorro-antd/button/style/index.css";
+@import "~ng-zorro-antd/table/style/index.css";
 
 *{
     font-family: 'Roboto', sans-serif;
