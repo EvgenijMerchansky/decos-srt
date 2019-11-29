@@ -7,7 +7,7 @@ import {IUser, ServicePosts} from '../services/app.service.posts';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  private dataSet: IUser[];
+  public dataSet: IUser[];
 
   constructor(public postService: ServicePosts) { }
 
