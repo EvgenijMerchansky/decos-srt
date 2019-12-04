@@ -25,6 +25,7 @@ import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { ChartsModule } from 'ng2-charts';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { TableComponent } from './table/table.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   {
@@ -88,7 +89,8 @@ const appRoutes: Routes = [
     AngularFireAuthModule,
     ChartsModule,
     NgZorroAntdModule,
-    NzTableModule
+    NzTableModule,
+    BrowserAnimationsModule
   ],
   providers: [ServicePosts, ServiceAuth, AngularFirestore, AngularFireAuthGuardModule, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

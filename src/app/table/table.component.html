@@ -1,19 +1,27 @@
 <div class="table-wrapper">
-  <nz-table #basicTable [nzData]="dataSet">
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Address</th>
-      <th>Phone</th>
-      <th>Website</th>
-    </tr>
+  <nz-table #basicTable [nzData]="tempData">
+    <thead (nzSortChange)="sort($event)" nzSingleSort>
+      <tr>
+        <th
+          nzShowSort
+          nzSortKey="name"
+          nzShowFilter
+          [nzFilters]="names"
+          (nzFilterChange)="filter($event, searchAddress)"
+        >
+          Name
+        </th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Website</th>
+      </tr>
     </thead>
     <tbody>
     <tr *ngFor="let data of basicTable.data">
       <td>{{data.name}}</td>
       <td>{{data.email}}</td>
-      <td>{{data.address.street}}</td>
+      <td>{{data.address.city}}</td>
       <td>{{data.phone}}</td>
       <td>{{data.website}}</td>
     </tr>
