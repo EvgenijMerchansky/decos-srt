@@ -1,5 +1,5 @@
 <div class="table-wrapper">
-  <nz-table #basicTable [nzData]="tempData">
+  <nz-table #basicTable [nzData]="tempData" [nzPageSize]="5">
     <thead (nzSortChange)="sort($event)" nzSingleSort>
       <tr>
         <th
