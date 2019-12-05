@@ -1,5 +1,5 @@
-<div class="posts-container" *ngIf="postsService.posts.length;">
-  <div class="posts-container-content" *ngFor="let post of postsService.posts;">
+<div class="posts-container">
+  <div class="posts-container-content" *ngFor="let post of posts;">
     <h4>{{post.title}}</h4>
     <hr/>
     <p>{{post.body}}</p>
@@ -14,4 +14,7 @@
   >
     <p style="font-size: 20px; color: white">Loading...</p>
   </ngx-spinner>
+</div>
+<div class="posts-container"  *ngIf="posts.length < 1;">
+  <h3>We don't have posts yet...</h3>
 </div>

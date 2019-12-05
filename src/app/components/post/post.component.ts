@@ -1,39 +1,52 @@
 import { Component, OnInit } from '@angular/core';
-import { ServicePosts } from 'src/app/services/app.service.posts';
-import { ActivatedRoute } from '@angular/router';
+import {IPost, IUser, ServicePosts} from 'src/app/services/app.service.posts';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {IFakeError, IHttpError} from '../../helpers/httpErrorHelper';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, IFakeError {
+  public post: IPost = undefined;
+  public user: IUser = undefined;
 
   constructor(
     public postsService: ServicePosts,
     public route: ActivatedRoute,
+    public router: Router,
     public spinner: NgxSpinnerService) { }
 
-  async ngOnInit() {
-    await this.spinner.show();
+  ngOnInit() {
+    this.spinner.show();
     const postId: string = this.route.snapshot.paramMap.get('id');
 
-    await this.getPost(postId);
-    await this.getUser(this.postsService.post.userId);
+    this.getPost(postId);
   }
 
-  public async getPost(postId: string): Promise<any> {
-    await this.postsService.GetPostAsync(postId);
-
-    await this.spinner.hide();
+  public getPost(postId: string) {
+    this.postsService.GetPostAsync(postId)
+      .subscribe(post => {
+        this.post = post;
+        this.getUser(post.userId);
+      },
+        err => this.printError(err));
   }
 
-  public async getUser(userId: number): Promise<any> {
-    await this.postsService
-      .GetUserAsync(userId)
-      .subscribe(() => {
+  public getUser(userId: number) {
+    this.postsService.GetUserAsync(userId)
+      .subscribe(user => {
+        this.user = user;
         this.spinner.hide();
-      });
+      },
+        err => this.printError(err));
+  }
+
+  public async printError(err: IHttpError): Promise<void> {
+    await this.spinner.hide();
+    window.alert(`Something was wrong: ${err.message}`);
+    await this.router.navigate(['/posts']);
   }
 }

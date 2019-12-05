@@ -62,3 +62,10 @@
     text-align: center;
     color: #ccc;
 }
+
+.posts-container h3 {
+  color: #cccccc;
+  width: 100%;
+  text-align: center;
+  margin-top: 4rem;
+}

@@ -1,18 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import {ServicePosts} from '../../services/app.service.posts';
-import {ActivatedRoute} from '@angular/router';
+import {IPost, IUser, ServicePosts} from '../../services/app.service.posts';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {IFakeError, IHttpError} from '../../helpers/httpErrorHelper';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, IFakeError {
+  public user: IUser = undefined;
+  public post: IPost = undefined;
 
   constructor(
     public postsService: ServicePosts,
     public route: ActivatedRoute,
+    public router: Router,
     public spinner: NgxSpinnerService) { }
 
   async ngOnInit() {
@@ -24,14 +28,25 @@ export class ProfileComponent implements OnInit {
     this.getPost(postId);
   }
 
-  public async getUser(userId: number): Promise<void> {
+  public getUser(userId: number) {
     this.postsService
-      .GetUserAsync(userId).subscribe(() => {
+      .GetUserAsync(userId).subscribe(user => {
+        this.user = user;
         this.spinner.hide();
       });
   }
 
-  public async getPost(postId: string): Promise<void> {
-    await this.postsService.GetPostAsync(postId);
+  public getPost(postId: string) {
+    this.postsService.GetPostAsync(postId)
+      .subscribe(post => {
+        this.post = post;
+        this.spinner.hide();
+      }, err => this.printError(err));
+  }
+
+  public async printError(err: IHttpError): Promise<void> {
+    await this.spinner.hide();
+    window.alert(`Something was wrong: ${err.message}`);
+    await this.router.navigate(['/posts']);
   }
 }

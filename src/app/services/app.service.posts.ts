@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
-import {tap} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
 export interface IPost {
@@ -45,46 +45,43 @@ export interface INewPost {
   providedIn: 'root'
 })
 export class ServicePosts {
-    public readonly apiBase: string = 'https://jsonplaceholder.typicode.com';
+  public readonly apiBase: string = 'https://jsonplaceholder.typicode.com';
 
-    public postsRef: AngularFireList<IPost[]>;
-    public posts: IPost[] = [];
-    public users: IUser[] = [];
-    public post: IPost = undefined;
-    public user: IUser = undefined;
+  public postsRef: AngularFireList<IPost[]>;
+  public posts: IPost[] = [];
+  public users: IUser[] = [];
+  public post: IPost = undefined;
+  public user: IUser = undefined;
 
-    constructor(
-      public http: HttpClient,
-      public db: AngularFireDatabase) {
-      this.postsRef = db.list('posts');
-    }
+  constructor(
+    public http: HttpClient,
+    public db: AngularFireDatabase) {
+    this.postsRef = db.list('posts');
+  }
 
-    public async GetPostsAsync(): Promise<void> {
-      await this.db
-        .list<IPost>('posts')
-        .valueChanges()
-        .subscribe((data) => {
-          this.posts = data;
-        });
-    }
+  public GetPostsAsync(): Observable<IPost[]> {
+    return this.db
+      .list<IPost>('posts')
+      .valueChanges()
+      .pipe(tap(posts => posts));
+  }
 
-    public async GetPostAsync(postId: string): Promise<void> {
-      return this.db.database
-        .ref('posts')
-        .once('value')
-        .then(data => {
-          const item = data.val()[`${postId}`];
-          if (item !== undefined) {
-            this.post = item;
-          }
-        });
-    }
+  public GetPostAsync(postId: string): Observable<IPost> {
+    return this.db
+      .list<IPost>('posts')
+      .valueChanges()
+      .pipe(map(posts => {
+        const postIndex = posts.findIndex(post => post.id === postId);
 
-    public GetUserAsync(userId: number): Observable<IUser> {
-      return this.http
-        .get<IUser>(`${this.apiBase}/users/${userId}`)
-        .pipe(tap(data => this.user = data));
-    }
+        return posts[postIndex];
+      }));
+  }
+
+  public GetUserAsync(userId: number): Observable<IUser> {
+    return this.http
+      .get<IUser>(`${this.apiBase}/users/${userId}`)
+      .pipe(tap(data => data));
+  }
 
   public GetUsersAsync(): Observable<IUser[]> {
     return this.http
@@ -92,17 +89,19 @@ export class ServicePosts {
       .pipe(tap(data => this.users = data));
   }
 
-    public async CreatePostAsync(newPost: INewPost): Promise<void> {
-      const postKey = this.db.list('posts')
-        .push(newPost).key;
+  public async CreatePostAsync(newPost: INewPost) {
+    const postKey = this.db.list('posts')
+      .push(newPost).key;
 
-      const updates = {};
-      updates['posts/' + postKey] = {...newPost, id: postKey};
+    const updates = {};
+    updates['posts/' + postKey] = {...newPost, id: postKey};
 
-      await this.db.database.ref().update(updates);
-    }
+    await this.db.database.ref().update(updates);
+  }
 
-    public async ChangeSocketValue(value: any): Promise<void> {
-      await this.db.database.ref('example').update({data: value});
-    }
+  public async ChangeSocketValue(value: any): Promise<void> {
+    await this.db.database
+      .ref('example')
+      .update({data: value});
+  }
 }

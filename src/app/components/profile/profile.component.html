@@ -1,19 +1,19 @@
 <div class="user-container">
-  <div class="user-container-wrapper" *ngIf="postsService.user !== undefined && postsService.post !== undefined;">
-    <a mat-tab-link [routerLink]="['/posts', postsService.post.id]" class="user-container-back-link" routerLinkActive="active">&#9664; <b>back to:</b> {{postsService.post.title}}</a>
+  <div class="user-container-wrapper" *ngIf="user !== undefined && post !== undefined;">
+    <a mat-tab-link [routerLink]="['/posts', post.id]" class="user-container-back-link" routerLinkActive="active">&#9664; <b>back to:</b> {{post.title}}</a>
     <hr/>
     <div class="user-container-info">
-      <p>Profile: <b>{{postsService.user.name}} aka "{{postsService.user.username}}"</b></p>
+      <p>Profile: <b>{{user.name}} aka "{{user.username}}"</b></p>
       <h5>Info:</h5>
       <ul>
-        <li>{{postsService.user.address.city}}, {{postsService.user.address.street}}, {{postsService.user.address.zipcode}}</li><br/>
-        <li>{{postsService.user.website}}</li><br/>
-        <li>{{postsService.user.phone}}</li><br/>
+        <li>{{user.address.city}}, {{user.address.street}}, {{user.address.zipcode}}</li><br/>
+        <li>{{user.website}}</li><br/>
+        <li>{{user.phone}}</li><br/>
       </ul>
       <h5>Company: </h5>
       <ul>
-        <li><b>{{postsService.user.company.name}}</b></li><br/>
-        <li>"{{postsService.user.company.catchPhrase}}"</li>
+        <li><b>{{user.company.name}}</b></li><br/>
+        <li>"{{user.company.catchPhrase}}"</li>
       </ul>
     </div>
     <hr/>

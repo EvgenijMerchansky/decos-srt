@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {IUser, ServicePosts} from '../services/app.service.posts';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {IFakeError, IHttpError} from '../helpers/httpErrorHelper';
+import {Router} from '@angular/router';
 
 interface IName {
   text: string;
@@ -12,7 +14,7 @@ interface IName {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, IFakeError {
   public dataSet: IUser[] = [];
   public names: IName[] = [];
   public listOfSearchName: string[] = [];
@@ -25,14 +27,17 @@ export class TableComponent implements OnInit {
   constructor(
     public postService: ServicePosts,
     public postsService: ServicePosts,
+    public router: Router,
     public spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.postService.GetUsersAsync().subscribe(data => {
       this.dataSet = [...data];
       this.tempData = [...data];
       this.names = [...data.map(item => ({ text: item.name, value: item.name }))];
-    });
+      this.spinner.hide();
+    }, );
   }
 
   filter(names: string[], searchAddress: string): void {
@@ -77,5 +82,11 @@ export class TableComponent implements OnInit {
     } else {
       this.tempData = data;
     }
+  }
+
+  public async printError(err: IHttpError): Promise<void> {
+    await this.spinner.hide();
+    window.alert(`Something was wrong: ${err.message}`);
+    await this.router.navigate(['/posts']);
   }
 }
