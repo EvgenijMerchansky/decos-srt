@@ -18,7 +18,11 @@
       </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let data of basicTable.data">
+    <tr
+      *ngFor="let data of basicTable.data"
+      (click)="openProfile(data.id)"
+      class="clickable-row"
+    >
       <td>{{data.name}}</td>
       <td>{{data.email}}</td>
       <td>{{data.address.city}}</td>
@@ -27,4 +31,28 @@
     </tr>
     </tbody>
   </nz-table>
+  <div *ngIf="currentUserData !== undefined">
+    <div class="user-container-info">
+      <p>User: <b>{{currentUserData.name}} aka "{{currentUserData.username}}"</b></p>
+      <h5>Info:</h5>
+      <ul>
+        <li>{{currentUserData.address.city}}, {{currentUserData.address.street}}, {{currentUserData.address.zipcode}}</li><br/>
+        <li>{{currentUserData.website}}</li><br/>
+        <li>{{currentUserData.phone}}</li><br/>
+      </ul>
+      <h5>Company: </h5>
+      <ul>
+        <li><b>{{currentUserData.company.name}}</b></li><br/>
+        <li>"{{currentUserData.company.catchPhrase}}"</li>
+      </ul>
+    </div>
+  </div>
+  <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+  >
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>
 </div>

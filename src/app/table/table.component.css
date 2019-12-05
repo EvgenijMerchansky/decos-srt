@@ -1,3 +1,14 @@
 .table-wrapper {
   padding: 20px;
 }
+
+.clickable-row {
+  cursor: pointer;
+}
+
+.user-container-info {
+  padding: 20px;
+  margin: 10px auto;
+  border: 10px solid #ccc;
+  border-radius: 5px;
+}

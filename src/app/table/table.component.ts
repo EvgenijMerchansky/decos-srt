@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {IUser, ServicePosts} from '../services/app.service.posts';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 interface IName {
   text: string;
@@ -19,8 +20,12 @@ export class TableComponent implements OnInit {
   public sortValue: string | null = null;
   public searchAddress: string;
   public tempData: IUser[] = [];
+  public currentUserData: IUser = undefined;
 
-  constructor(public postService: ServicePosts) { }
+  constructor(
+    public postService: ServicePosts,
+    public postsService: ServicePosts,
+    public spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.postService.GetUsersAsync().subscribe(data => {
@@ -37,13 +42,21 @@ export class TableComponent implements OnInit {
   }
 
   sort(sort: { key: string; value: string }): void {
-
     this.sortName = sort.key;
     this.sortValue = sort.value;
     this.search();
   }
 
+  public openProfile(id: number) {
+    this.spinner.show();
+    this.postsService.GetUserAsync(id).subscribe(data => {
+      this.currentUserData = data;
+      this.spinner.hide();
+    });
+  }
+
   search(): void {
+    this.currentUserData = undefined;
     const filterFunc = (item: IUser) =>
       (this.searchAddress ? 0 : true) &&
       (this.listOfSearchName.length ? this.listOfSearchName.some(name => item.name.indexOf(name) !== -1) : true);
