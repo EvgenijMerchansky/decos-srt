@@ -12,3 +12,7 @@
   border: 10px solid #ccc;
   border-radius: 5px;
 }
+
+.active-user {
+  background-color: #ffc0cb5e;
+}

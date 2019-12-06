@@ -22,6 +22,7 @@
       *ngFor="let data of basicTable.data"
       (click)="openProfile(data.id)"
       class="clickable-row"
+      [class.active-user]="activeUser === data.id"
     >
       <td>{{data.name}}</td>
       <td>{{data.email}}</td>

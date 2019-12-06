@@ -23,6 +23,7 @@ export class TableComponent implements OnInit, IFakeError {
   public searchAddress: string;
   public tempData: IUser[] = [];
   public currentUserData: IUser = undefined;
+  public activeUser: number = undefined;
 
   constructor(
     public postService: ServicePosts,
@@ -56,6 +57,7 @@ export class TableComponent implements OnInit, IFakeError {
     this.spinner.show();
     this.postsService.GetUserAsync(id).subscribe(data => {
       this.currentUserData = data;
+      this.activeUser = id;
       this.spinner.hide();
     });
   }
